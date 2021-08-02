@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Tic Tac Toe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="js/app-main.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app-layout.css" />
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+   			<span class="navbar-brand"> Tic Tac Toe
+   			</span>
+        </div>
+    </div>
+</nav>
+
+<div class="game-area panel panel-default">
+    <div class="panel-body">
+
+        <h4 class="game-status">
+    	<span th:if="${game.getPlayerState().isInProgress()}" class="label label-default">
+    		The current game is in progress.</span>
+            <span th:if="${game.getPlayerState().isWin()}" class="label label-success">
+    		CONGRATULATION! YOU WIN!</span>
+            <span th:if="${game.getPlayerState().isLoss()}" class="label label-danger">
+    		You've lost. Better luck next time!</span>
+            <span th:if="${game.getPlayerState().isDraw()}" class="label label-info">
+    		It's a draw. Better luck next time!</span>
+        </h4>
+
+        <table class="board">
+            <tr th:each="row : ${game.getBoard().getTiles()}" class="board-row">
+                <td th:each="tile : ${row}">
+                    <div th:id="${tile.getId()}"
+                         class="board-row-tile"
+                         th:classappend="${!tile.isEmpty()} ? ${tile} + '-value' : (${!game.isGameOver()} ? 'available')"
+                         th:text="${tile}">
+                        &nbsp;
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <form id="form_mark_tile" th:action="@{/}" method="POST" class="form-inline">
+            <div class="checkbox">
+                <label><input name="vs_player" type="checkbox" th:checked="${game.isVsPlayer()}" /> 2 Players</label>
+            </div>
+            <div class="checkbox">
+                <label><input name="player_go_first" type="checkbox" th:checked="${game.isPlayerGoFirst()}" /> Play First</label>
+            </div>
+            <div>
+                <label>
+                    Board Size
+                    <input name="board_size" type="text" value="3" th:value="${game.boardSize}"/>
+                </label>
+            </div>
+
+            <div class="btn-new-game-wrap">
+                <a id="btn-new-game" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">New Game</a>
+            </div>
+
+            <input id="is_game_over" type="hidden" th:value="${game.isGameOver()}" />
+            <input id="tile_id" name="tile_id" type="hidden" value="" />
+            <input id="new_game" name="new_game" type="hidden" value="" />
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

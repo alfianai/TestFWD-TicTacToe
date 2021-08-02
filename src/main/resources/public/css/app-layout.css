@@ -1,0 +1,44 @@
+.navbar-brand img {
+    display: inline;
+}
+
+.game-area {
+    text-align: center;
+    margin: 20px;
+}
+
+.game-status {
+    margin: 0 0 15px 0 !important;
+}
+
+.board {
+    border: 2px solid #696969;
+    margin: 10px auto;
+}
+
+.board td {
+    border: 1px solid #696969;
+}
+
+.board-row-tile {
+    text-align: center;
+    height: 80px;
+    width: 80px;
+    font-size: 60px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+}
+
+.board-row-tile.available:hover {
+    cursor: pointer;
+    background: #EEE;
+}
+
+.btn-new-game-wrap {
+    margin-top: 10px;
+}
+
+#btn-new-game {
+    width: 200px;
+}
